@@ -18,7 +18,7 @@ const Recipe = sequelize.define("recipe", {
   },
 });
 
-Recipe.sync();
+await Recipe.sync();
 
 try {
   await sequelize.authenticate();
@@ -34,7 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/recipes", async (req, res) => {
-  const recipes = await Recipe.findAll();
+  const recipes = await Recipe.findAll({ attributes: ["id", "name"] });
 
   res.status(httpStatus.OK).send(recipes);
 });
@@ -48,6 +48,17 @@ app.post("/api/recipes", async (req, res) => {
     console.error("Error saving new recipe", error);
     res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
   }
+});
+
+app.put("/api/recipes/:id", async (req, res) => {
+  await Recipe.update(
+    { name: req.body.name },
+    {
+      where: {
+        id: req.params.id,
+      },
+    }
+  );
 });
 
 app.delete("/api/recipes/:id", async (req, res) => {
