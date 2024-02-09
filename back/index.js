@@ -3,14 +3,24 @@ import { Sequelize, DataTypes } from "sequelize";
 import cors from "cors";
 import "http-status";
 import httpStatus from "http-status";
+import { config } from "dotenv";
+
+config();
 
 const sequelize = new Sequelize(
-  "mysql://root:root123$@localhost:3306/home_app",
+  `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:5432/${process.env.POSTGRES_DB}`,
   {
-    host: "localhost",
-    dialect: "mysql",
+    host: process.env.POSTGRES_HOST,
+    dialect: "postgres",
   }
 );
+
+try {
+  await sequelize.authenticate();
+  console.log("Connection has been established successfully.");
+} catch (error) {
+  console.error("Unable to connect to the database:", error);
+}
 
 const Recipe = sequelize.define("recipe", {
   name: {
@@ -20,13 +30,6 @@ const Recipe = sequelize.define("recipe", {
 });
 
 await Recipe.sync();
-
-try {
-  await sequelize.authenticate();
-  console.log("Connection has been established successfully.");
-} catch (error) {
-  console.error("Unable to connect to the database:", error);
-}
 
 const app = express();
 const port = 3000;

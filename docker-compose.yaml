@@ -1,29 +1,33 @@
 version: "3.8"
 
 services:
-  mysql:
-    image: mysql:8.0
+  postgres:
+    image: postgres:12
     restart: unless-stopped
     env_file: ./.env
     environment:
-      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
-      - MYSQL_DATABASE=$MYSQL_DATABASE
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_DB=$POSTGRES_DB
     ports:
-      - 3306:3306
+      - 5432:5432
     volumes:
-      - db:/var/lib/mysql
+      - db:/var/lib/postgresql/data
   back:
     depends_on:
-      - mysql
+      - postgres
     build: ./back
     restart: unless-stopped
     env_file: ./.env
     ports:
       - 3000:3000
     environment:
-      - DB_HOST=mysql
-      - DB_USER=$MYSQL_USER
-      - DB_PASSWORD=$MYSQL_ROOT_PASSWORD
-      - DB_NAME=$MYSQL_DATABASE
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_DB=$POSTGRES_DB
     stdin_open: true
     tty: true
+
+volumes:
+  db: /backup
