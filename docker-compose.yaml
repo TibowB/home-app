@@ -28,6 +28,11 @@ services:
       - POSTGRES_DB=$POSTGRES_DB
     stdin_open: true
     tty: true
+  front:
+    build: ./front
+    restart: unless-stopped
+    ports:
+      - 80:80
 
 volumes:
   db:
