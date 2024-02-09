@@ -30,4 +30,4 @@ services:
     tty: true
 
 volumes:
-  db: /backup
+  db:
