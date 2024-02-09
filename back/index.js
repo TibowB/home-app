@@ -1,5 +1,6 @@
 import express from "express";
 import { Sequelize, DataTypes } from "sequelize";
+import cors from "cors";
 import "http-status";
 import httpStatus from "http-status";
 
@@ -30,6 +31,7 @@ try {
 const app = express();
 const port = 3000;
 
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -40,6 +42,7 @@ app.get("/api/recipes", async (req, res) => {
 });
 
 app.post("/api/recipes", async (req, res) => {
+  console.log(req.body);
   try {
     const recipe = await Recipe.create({ name: req.body.name });
     await recipe.save();
