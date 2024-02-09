@@ -21,8 +21,6 @@ const onSubmit = () => {
     .finally(() => (newRecipe.value = ''));
 };
 
-recipes.value = [{ name: 'Soupe', id: 4 }];
-
 getRecipes().then(data => (recipes.value = data));
 </script>
 
@@ -34,7 +32,7 @@ getRecipes().then(data => (recipes.value = data));
     class="mt-10"
   ></v-text-field>
   <v-btn variant="outlined" @click="onSubmit">Enregistrer</v-btn>
-  <v-list lines="one">
+  <v-list lines="one" v-if="recipes.length !== 0">
     <v-list-item
       v-for="recipe in recipes"
       :key="recipe.id"
