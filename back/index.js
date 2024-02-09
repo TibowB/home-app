@@ -36,13 +36,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/recipes", async (req, res) => {
-  const recipes = await Recipe.findAll({ attributes: ["id", "name"] });
+  const recipes = await Recipe.findAll({
+    attributes: ["id", "name"],
+    order: [["name", "ASC"]],
+  });
 
   res.status(httpStatus.OK).send(recipes);
 });
 
 app.post("/api/recipes", async (req, res) => {
-  console.log(req.body);
   try {
     const recipe = await Recipe.create({ name: req.body.name });
     await recipe.save();
