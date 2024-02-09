@@ -33,8 +33,6 @@ services:
     restart: unless-stopped
     ports:
       - 80:80
-    volumes:
-      - ./front/nginx/conf.d:/etc/nginx/conf.d
 
 volumes:
   db:
