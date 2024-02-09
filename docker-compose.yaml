@@ -34,7 +34,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - front/nginx/conf.d:/etc/nginx/conf.d
+      - ./front/nginx/conf.d:/etc/nginx/conf.d
 
 volumes:
   db:
