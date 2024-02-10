@@ -4,8 +4,10 @@ import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <v-app>
+  <v-layout>
     <AppBar />
-    <RouterView />
-  </v-app>
+    <v-main>
+      <RouterView />
+    </v-main>
+  </v-layout>
 </template>

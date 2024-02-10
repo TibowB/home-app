@@ -29,9 +29,10 @@ getRecipes().then(data => (recipes.value = data));
     label="Nouvelle recette"
     hide-details="auto"
     v-model="newRecipe"
-    class="mt-10"
+    class="my-4"
   ></v-text-field>
-  <v-btn variant="outlined" @click="onSubmit">Enregistrer</v-btn>
+  <v-btn variant="outlined" width="100%" @click="onSubmit">Enregistrer</v-btn>
+  <p class="text-h4 mt-4">Recettes</p>
   <v-list lines="one" v-if="recipes.length !== 0">
     <v-list-item
       v-for="recipe in recipes"
