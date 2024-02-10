@@ -11,10 +11,6 @@ const onDelete = id =>
   );
 
 const onSubmit = () => {
-  if (newRecipe.value === '') {
-    return;
-  }
-
   addRecipe({ name: newRecipe.value })
     .then(() => getRecipes())
     .then(data => (recipes.value = data))
@@ -31,7 +27,13 @@ getRecipes().then(data => (recipes.value = data));
     v-model="newRecipe"
     class="my-4"
   ></v-text-field>
-  <v-btn variant="outlined" width="100%" @click="onSubmit">Enregistrer</v-btn>
+  <v-btn
+    variant="outlined"
+    width="100%"
+    @click="onSubmit"
+    :disabled="!newRecipe"
+    >Enregistrer</v-btn
+  >
   <p class="text-h4 mt-4">Recettes</p>
   <v-list lines="one" v-if="recipes.length !== 0">
     <v-list-item

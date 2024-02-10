@@ -1,6 +1,7 @@
 import express from 'express';
 import { Sequelize, DataTypes } from 'sequelize';
 import 'http-status';
+import cors from 'cors';
 import httpStatus from 'http-status';
 import { config } from 'dotenv';
 
@@ -33,6 +34,7 @@ await Recipe.sync();
 const app = express();
 const port = 3000;
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
