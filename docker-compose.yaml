@@ -16,7 +16,7 @@ services:
   back:
     depends_on:
       - postgres
-    build: ./back
+    image: home-app-back
     restart: unless-stopped
     env_file: ./.env
     ports:
@@ -29,7 +29,7 @@ services:
     stdin_open: true
     tty: true
   front:
-    build: ./front
+    image: home-app-front
     restart: unless-stopped
     ports:
       - 80:80
