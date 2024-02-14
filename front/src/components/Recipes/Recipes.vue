@@ -40,9 +40,11 @@ getRecipes().then(data => (recipes.value = data));
       v-for="recipe in recipes"
       :key="recipe.id"
       :title="recipe.name"
-      append-icon="mdi-close"
-      @click.append="onDelete(recipe.id)"
-    ></v-list-item>
+    >
+      <template v-slot:append>
+        <v-btn icon="mdi-close" @click="onDelete(recipe.id)"></v-btn>
+      </template>
+    </v-list-item>
   </v-list>
 </template>
 
