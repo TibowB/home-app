@@ -8,5 +8,9 @@
     {% endfor %}
   </ul>
   {% endif %}
+  <form action="{{ url_for('add_recipe') }}" method="post">
+    <input type="text" name="name" />
+    <button type="submit">Ajouter</button>
+  </form>
 </div>
 {% endblock %}
