@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Home App</title>
-  </head>
-  <body>
-    <h1 class="text-3xl font-bold underline">Hello world!</h1>
-  </body>
-</html>
+{% extends "layout/base.html" %} {% block main %}
+<div class="container">
+  {% if recipes %}
+  <h1>Recettes</h1>
+  <ul class="list-group">
+    {% for recipe in recipes %}
+    <li class="list-group-item">{{ recipe.name }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endblock %}
